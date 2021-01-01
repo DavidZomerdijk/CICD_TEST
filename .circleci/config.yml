@@ -12,8 +12,14 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible # install the dependencies needed for your playbook
+      # - run:
+      #     name: add ssh knwon hosts
+      #     command: |
+      #       echo "ec2-18-219-246-246.us-east-2.compute.amazonaws.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBzoe0wBAMTCsLMfj5f3LyASaHC+YoQJc8qzXc0qMC1v" > ~/.ssh/known_hosts
       - run:
           name: Configure server
+          environment:
+            ANSIBLE_HOST_KEY_CHECKING: False
           command: |
             echo yes |
             ansible-playbook -i inventory.txt playbook.yml
